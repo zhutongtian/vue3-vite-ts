@@ -1,0 +1,37 @@
+@import "./main.scss";
+.scroll-ani-box {
+  width: percentage(1);
+  max-width: 100 * 3px;
+  height: 250px;
+  color: $color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 3rem;
+  background: linear-gradient(135deg, $boxBgColor-1 10%, $boxBgColor-2 90%);
+  // range function
+  margin: range(15px, 15px, 15);
+  // min function
+  border-radius: min(8px, 9px, 10px);
+  // fade function
+  box-shadow: 1px 3px 12px fade($color, 40%);
+  letter-spacing: 2px;
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+  transform: translateX(-400%);
+  transition: transform 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+  &:nth-child(even) {
+    transform: translateX(400%);
+  }
+  &.show {
+    transform: translateX(0);
+  }
+  .scroll-ani-box-title {
+    color: $color;
+    // text-transform: extract($textTransform, 1);
+    text-transform: extract(uppercase, capitalize, none, lowercase, inherit, 1);
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  }
+}
