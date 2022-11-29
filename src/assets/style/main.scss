@@ -20,3 +20,113 @@ $bgColor-2: #2686cf;
 $titleColor: #535455;
 $boxBgColor-1: #f1bd81;
 $boxBgColor-2: #e07e0e;
+
+@for $i from 0 through 100 {
+  .mt-#{$i} {
+    margin-top: $i + px;
+  }
+
+  .m-#{$i} {
+    margin: $i + px;
+  }
+
+  .mb-#{$i} {
+    margin-bottom: $i + px;
+  }
+
+  .ml-#{$i} {
+    margin-left: $i + px;
+  }
+
+  .mr-#{$i} {
+    margin-right: $i + px;
+  }
+}
+// padding
+@for $i from 0 through 100 {
+  .pt-#{$i} {
+    padding-top: $i + px;
+  }
+
+  .p-#{$i} {
+    padding: $i + px;
+  }
+
+  .pb-#{$i} {
+    padding-bottom: $i + px;
+  }
+
+  .pl-#{$i} {
+    padding-left: $i + px;
+  }
+
+  .pr-#{$i} {
+    padding-right: $i + px;
+  }
+}
+
+@function setMargin($i, $j, $unit) {
+  $result: 0;
+  @for $_ from $i through $j {
+    @if $unit {
+      $result: $_ + $unit;
+    } @else {
+      $result: $_;
+    }
+  }
+  @return $result;
+}
+@function setPadding($i, $j, $unit) {
+  $result: 0;
+  @for $_ from $i through $j {
+    @if $unit {
+      $result: $_ + $unit;
+    } @else {
+      $result: $_;
+    }
+  }
+  @return $result;
+}
+@mixin m($dir, $number, $unit) {
+  $prop: margin;
+  @if ($dir) {
+    $prop: $prop + $dir;
+  }
+  @if $unit {
+    #{$prop}: setMargin(0, $number, $unit);
+  } @else {
+    #{$prop}: setMargin(0, $number, null);
+  }
+}
+@mixin p($dir, $number, $unit) {
+  $prop: padding;
+  @if ($dir) {
+    $prop: $prop + $dir;
+  }
+  @if $unit {
+    #{$prop}: setPadding(0, $number, $unit);
+  } @else {
+    #{$prop}: setPadding(0, $number, null);
+  }
+}
+@mixin reset {
+  @include p(null, 0, null);
+  @include m(null, 0, null);
+}
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@mixin flex-space {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.m-auto {
+  margin: 0 auto;
+}
+.el-block {
+  display: block;
+}

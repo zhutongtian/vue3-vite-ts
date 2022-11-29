@@ -51,6 +51,21 @@ const routes: Array<RouteRecordRaw> = [
     name: "formWave",
     component: () => import("@/views/FormWave.vue"),
   },
+  {
+    path: "/counter",
+    name: "counter",
+    component: () => import("@/views/Counter.vue"),
+  },
+  {
+    path: "/clock",
+    name: "clock",
+    component: () => import("@/views/Clock.vue"),
+  },
+  {
+    path: "/sign",
+    name: "sign",
+    component: () => import("@/views/Sign.vue"),
+  },
 ];
 
 const router = createRouter({

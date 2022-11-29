@@ -21,6 +21,8 @@
     "@types/crypto-js": "^4.1.1",
     "@types/node": "^16.0.1",
     "@vitejs/plugin-vue": "^3.2.0",
+    "ew-color-picker": "^1.9.9",
+    "font-awesome": "^4.7.0",
     "node-sass": "^7.0.1",
     "sass": "^1.54.7",
     "sass-loader": "^13.0.2",

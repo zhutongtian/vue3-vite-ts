@@ -8,7 +8,11 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Background: typeof import('./src/components/Loading/Background.vue')['default']
+    Button: typeof import('./src/components/Clock/Button.vue')['default']
+    Clock: typeof import('./src/components/Clock/Clock.vue')['default']
+    ColorPicker: typeof import('./src/components/Sign/ColorPicker.vue')['default']
     Content: typeof import('./src/components/Animation/Content.vue')['default']
+    Counter: typeof import('./src/components/Counter.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElForm: typeof import('element-plus/es')['ElForm']
@@ -20,6 +24,7 @@ declare module '@vue/runtime-core' {
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     Form: typeof import('./src/components/Form/Form.vue')['default']
     HswInput: typeof import('./src/components/hsw-input.vue')['default']
+    Input: typeof import('./src/components/Sign/Input.vue')['default']
     LeftMenu: typeof import('./src/components/Animation/LeftMenu.vue')['default']
     NavList: typeof import('./src/components/Animation/NavList.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
