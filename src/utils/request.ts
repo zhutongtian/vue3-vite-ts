@@ -6,8 +6,9 @@ import axios, {
 } from "axios";
 // import { useStore } from "../store/index";
 import { ElMessage } from "element-plus";
-const baseURL: any = import.meta.env.VITE_BASE_URL;
-console.log(import.meta.env.VITE_BASE_URL, "111");
+import { GlobalStore } from "@/store";
+const baseURL: any = import.meta.env.VITE_API_URL;
+console.log(import.meta.env.VITE_API_URL, "111");
 const service: AxiosInstance = axios.create({
   baseURL: baseURL,
   timeout: 10000,
@@ -19,7 +20,13 @@ service.interceptors.request.use(
     // if (useStore.getters['user/token']) {
     //   config.headers['Cas-Auth-Token'] = useStore.state.user.token
     // }
-    return config;
+    // return config;
+    const globalStore = GlobalStore();
+    const token: string = globalStore.token;
+    return {
+      ...config,
+      headers: { ...config.headers, "x-access-token": token },
+    };
   },
   (error: AxiosError) => {
     // console.log(error) // for debug
@@ -51,16 +58,16 @@ service.interceptors.response.use(
 );
 
 function showError(error: any) {
-  if (error.code === 403) {
-    // to re-login
-    // store.dispatch('user/loginOut')
-  } else {
-    ElMessage({
-      message: error.msg || error.message || "服务异常",
-      type: "error",
-      // duration: 3 * 1000
-    });
-  }
+  // if (error.code === 403) {
+  // to re-login
+  // store.dispatch('user/loginOut')
+  // } else {
+  ElMessage({
+    message: error.msg || error.message || "服务异常",
+    type: "error",
+    // duration: 3 * 1000
+  });
+  // }
 }
 
 export default service;

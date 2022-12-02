@@ -42,7 +42,8 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         charset: false,
-        additionalData: '@import "./src/assets/style/main.scss";',
+        additionalData: `@import "./src/assets/style/main.scss";@import "./src/styles/var.scss";`,
+        // additionalData: `@import "./src/styles/var.scss";`,
       },
     },
   },
@@ -59,6 +60,12 @@ export default defineConfig({
     proxy: {
       // 代理配置
       // '/dev': 'https://www.fastmock.site/mock/48cab8545e64d93ff9ba66a87ad04f6b/'
+      "/api": {
+        // target: "https://www.fastmock.site/mock/f81e8333c1a9276214bcdbc170d9e0a0", // fastmock
+        target: "https://mock.mengxuegu.com/mock/629d727e6163854a32e8307e", // easymock
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
     },
   },
   // 生产环境打包配置

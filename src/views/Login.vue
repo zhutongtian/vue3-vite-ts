@@ -147,15 +147,20 @@
 //element-ui
 import { Avatar, Lock, Iphone } from "@element-plus/icons-vue";
 // import { ElMessage } from "element-plus";
+import { ElNotification } from "element-plus";
 //api
-import { loginByJson, sendCaptcha, loginByMobile } from "@/api/login";
+import { loginApi } from "@/api/modules/login";
 //滑块组件
 // import Verify from "@/components/verifition/Verify.vue";
 //加密
 import { Encrypt } from "../utils/aes";
+import md5 from "js-md5";
+import { getTimeState } from "@/utils/util";
+import { useRouter } from "vue-router";
 //pinia
-import { useUserStore } from "../store/user";
-const userStore = useUserStore();
+import { GlobalStore } from "@/store";
+const globalStore = GlobalStore();
+const router = useRouter();
 
 //账号登录和短信登录切换
 let current = ref(1);
@@ -188,21 +193,30 @@ const userBtn = (formEl) => {
   if (!formEl) return;
   formEl.validate((valid, fields) => {
     if (valid) {
-      // loginByJson({
-      //   username: Encrypt(ruleForm.username),
-      //   password: Encrypt(ruleForm.userpwd),
-      // }).then((res) => {
-      //   //登录成功
-      //   if (res.meta.code != "10006") {
-      //     ElMessage({
-      //       showClose: true,
-      //       message: res.meta.msg,
-      //       type: "error",
-      //     });
-      //     return;
-      //   }
-      //   userStore.setToken(res.data.accessToken);
-      // });
+      loginApi({
+        username: ruleForm.username,
+        password: md5(ruleForm.userpwd),
+      }).then((res) => {
+        const { data } = res;
+        //登录成功
+        // if (res.meta.code != "10006") {
+        //   ElMessage({
+        //     showClose: true,
+        //     message: res.meta.msg,
+        //     type: "error",
+        //   });
+        //   return;
+        // }
+        // userStore.setToken(res.data.accessToken);
+        globalStore.setToken(data.access_token);
+        router.push("/home/index");
+        ElNotification({
+          title: getTimeState(),
+          message: "欢迎登录 Geeker-Admin",
+          type: "success",
+          duration: 3000,
+        });
+      });
     } else {
       ElMessage({
         showClose: true,
@@ -272,22 +286,22 @@ const phoneBtn = (formEl) => {
   if (!formEl) return;
   formEl.validate((valid, fields) => {
     if (valid) {
-      //用户输入的手机号
-      let mobile = Encrypt(ruleFormPhone.phone);
-      //用户输入的验证码
-      let captcha = ruleFormPhone.captcha;
-      loginByMobile({ mobile, captcha }).then((res) => {
-        //登录成功
-        if (res.meta.code != "10006") {
-          ElMessage({
-            showClose: true,
-            message: res.meta.msg,
-            type: "error",
-          });
-          return;
-        }
-        userStore.setToken(res.data.accessToken);
-      });
+      // //用户输入的手机号
+      // let mobile = Encrypt(ruleFormPhone.phone);
+      // //用户输入的验证码
+      // let captcha = ruleFormPhone.captcha;
+      // loginByMobile({ mobile, captcha }).then((res) => {
+      //   //登录成功
+      //   if (res.meta.code != "10006") {
+      //     ElMessage({
+      //       showClose: true,
+      //       message: res.meta.msg,
+      //       type: "error",
+      //     });
+      //     return;
+      //   }
+      //   userStore.setToken(res.data.accessToken);
+      // });
     } else {
       ElMessage({
         showClose: true,
